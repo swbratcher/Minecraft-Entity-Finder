@@ -1,22 +1,29 @@
 ======================
-Minecraft Region Fixer
+Minecraft Entity Finder 
 ======================
 
-By Alejandro Aguilera (Fenixin) 
-Sponsored by NITRADO servers (http://nitrado.net)
+(or more accurately "Minecraft Named Entity Finder")
 
-Locates problems and tries to fix Minecraft worlds (or region files).
 
-Tries to fix corrupted chunks in region files using old backup copies
-of the Minecraft world. If you don't have a copy, you can eliminate the
-corrupted chunks making Minecraft recreate them.
+Forked from "Minecraft Region Fixer" by Scott Bratcher (swbratcher)
 
-It also scans the 'level.dat' file and the player '\*.dat' and tries to 
-read them. If there are any problems it prints warnings. At the moment
-it doesn't fix any problem in these files.
+Locates mob entities that have had name tags applied to them giving
+them the CustomName attribute in their entity data, then returning that
+they were found and at what position they were found using the entity's
+Pos array to deliver the X,Z coordinates.
+
+My son lost his dog, Turbo, and we found it with my mods to this fork. 
+Pretend your name tag offers the GPS chip that fancy dogs are afforded. 
+
+
+TODO: 
+Will be removing all past functionality that tries to fix corrupted 
+chunks in region files using old backup copies of the Minecraft world.
+It will no longer fix or modify after I gut the script set and it won't 
+fix any problem in these files.
 
 Web page:
-https://github.com/Fenixin/Minecraft-Region-Fixer
+https://github.com/swbratcher/Minecraft-Entity-Finder
 
 
 Supported platforms
@@ -24,40 +31,20 @@ Supported platforms
 This program seems to work with Python 2.7.x, and DOESN'T work with
 python 3.x. There is also a windows executable for ease of use, if you
 use the windows executable you don't need to install Python.
-
-
-Windows .exe downloads
-======================
-The window executable is generated using py2exe and is the choice if 
-you don't want to install python in your system.
-
-These downloads were usually in the downloads section of github, but 
-github has deprecated this feature. So, from Region Fixer v0.1.0 
-downloads are stored in mediafire:
-
-http://www.mediafire.com/?1exub0d8ys83y
-or
-http://adf.ly/HVHGu   (if you want to contribute a little)
-
-
-Notes
-=====
-Older versions of Minecraft had big problems when loading corrupted 
-chunks. But in the latest versions of Minecraft (tested in 1.4.7) the
-server itself removes corrupted chunks (when loading them) and 
-regenerate those chunks. Region-Fixer still is useful for replacing 
-those chunks with a backup, removing entities, or trying to see what's 
-going wrong with your world.
+(But I don't use windows, so hopefully I don't gut what allows that to work.)
 
 
 Usage
 =====
 You can read the program help running: “python region-fixer.py --help”
 
-(NOTE: if you downloaded the .exe version for windows, use 
- "region-fixer.exe" instead of "python region-fixer.py")
+Here's what I used to find Turbo, my son's dog:
 
-Here are some examples:
+    $ python region-fixer.py --name-tags /Users/[my_user]/Library/Application\ Support/minecraft/saves/[my_world]/
+
+Where [my_user] was swbratcher and [my_world] was world (the default minecraft world save file name).
+
+Here are some other (likely gutted) examples of pre-fork functionality:
 
 From v0.1.0 Region-Fixer can scan single region files and arbitrary 
 region sets. For example, if you know where the problem is you could 

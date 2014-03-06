@@ -1,4 +1,7 @@
-Donors (random order):
+Donors to this little fork:
+$0
+
+Pre-Fork Project Donors (random order):
 Crappotron (Minecraft forums)
 Travis Wicks
 Nico van Duuren (Knights and Merchants)
