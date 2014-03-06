@@ -84,6 +84,9 @@ def main():
     parser.add_option('--backups', '-b', help = 'List of backup directories of the Minecraft world to use to fix corrupted chunks and/or wrong located chunks. Warning! Region-Fixer is not going to check if it\'s the same world, be careful! This argument can be a comma separated list (but never with spaces between elements!). This option can be only used scanning one world.',\
         metavar = '<backups>', type = str, dest = 'backups', default = None)
 
+    parser.add_option('--name-tags', '--nt', help = 'Causes the script to list the --name-tags found in the scan.',\
+        default = False, dest = 'name_tags', action='store_true')
+
     parser.add_option('--replace-corrupted','--rc', help = 'Tries to replace the corrupted chunks using the backup directories. This option can be only used scanning one world.',\
         default = False, dest = 'replace_corrupted', action='store_true')
 

@@ -94,6 +94,14 @@ class interactive_loop(Cmd):
                     except ValueError:
                         print "Invalid value. Valid values are positive integers and zero"
 
+            elif args[0] == "name-tags":
+
+                if len(args) == 1:
+                    self.options.name_tags = True
+                    print "Finding entity name tags."
+                else:
+                    print "Invalid value. This is either set or not set and does not accept arguments."
+
             elif args[0] == "workload":
 
                 if len(args) == 1:

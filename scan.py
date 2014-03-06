@@ -197,6 +197,15 @@ def scan_region_file(scanned_regionfile_obj, options):
                         chunk_count += 1
                     else: continue
                     if c[TUPLE_STATUS] == world.CHUNK_OK:
+                        if options.name_tags == True:
+                            if len(chunk["Level"]["Entities"]) > 0:
+                                for idx, val in enumerate(chunk["Level"]["Entities"]):
+                                    try:
+                                        if str(val["CustomName"]) != "":
+                                            # TODO Don't simply print this. Store it to display as part of a summary that doesn't interrupt the progress bar.
+                                            print "\n\"{0}\" is currently at X:{1} Z:{2}.".format(val["CustomName"], int(float(val["Pos"][0].value)), int(float(val["Pos"][2].value)))
+                                    except:
+                                        pass
                         continue
                     elif c[TUPLE_STATUS] == world.CHUNK_TOO_MANY_ENTITIES:
                         # deleting entities is in here because parsing a chunk with thousands of wrong entities
