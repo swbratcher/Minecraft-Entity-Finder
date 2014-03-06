@@ -16,7 +16,15 @@ My son lost his dog, Turbo, and we found it with my mods to this fork.
 Pretend your name tag offers the GPS chip that fancy dogs are afforded. 
 
 
-TODO: 
+FIRST TODO:
+=====================
+Really soon, I plan to add for the script to also list locations and 
+owners of owned dogs and locations and owners of owned horses, whether 
+named with name tags or not.
+
+
+MAYBE TODO:
+=====================
 Will be removing all past functionality that tries to fix corrupted 
 chunks in region files using old backup copies of the Minecraft world.
 It will no longer fix or modify after I gut the script set and it won't 
@@ -306,15 +314,15 @@ Bugs, suggestions, feedback, questions
 ======================================
 Suggestions and bugs should go to the github page:
 
-https://github.com/Fenixin/Minecraft-Region-Fixer
+https://github.com/swbratcher/Minecraft-Entity-Finder
 
 Feedback and questions should go preferably to the forums posts:
 
 (server administration)
-http://www.minecraftforum.net/topic/275730-tool-minecraft-region-fixer/
+http://www.minecraftforum.net/ ... TODO
 
 (mapping and modding)
-http://www.minecraftforum.net/topic/302380-tool-minecraft-region-fixer/
+http://www.minecraftforum.net/ ... TODO
 
 
 Contributors
