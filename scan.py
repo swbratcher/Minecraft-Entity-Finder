@@ -204,6 +204,12 @@ def scan_region_file(scanned_regionfile_obj, options):
                                         if str(val["CustomName"]) != "":
                                             # TODO Don't simply print this. Store it to display as part of a summary that doesn't interrupt the progress bar.
                                             print "\n\"{0}\" is currently at X:{1} Z:{2}.".format(val["CustomName"], int(float(val["Pos"][0].value)), int(float(val["Pos"][2].value)))
+                                        elif str(val["Owner"]) != "":
+                                            # TODO Don't simply print this. Store it to display as part of a summary that doesn't interrupt the progress bar.
+                                            print "\n{0}'s {1} is currently at X:{2} Z:{3}.".format(val["Owner"], val["id"], int(float(val["Pos"][0].value)), int(float(val["Pos"][2].value)))
+                                        elif str(val["OwnerName"]) != "":
+                                            # TODO Don't simply print this. Store it to display as part of a summary that doesn't interrupt the progress bar.
+                                            print "\n{0}'s horse is currently at X:{1} Z:{2}.".format(val["OwnerName"], int(float(val["Pos"][0].value)), int(float(val["Pos"][2].value)))
                                     except:
                                         pass
                         continue
