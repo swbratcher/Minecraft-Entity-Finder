@@ -39,6 +39,23 @@ import time
 import sys
 import traceback
 
+try: import simplejson as json
+except ImportError: raise
+try: from pprint import pprint
+except ImportError: import json
+
+#create a uuid to username dictionary...
+try:
+    with open('whitelist.json') as whitelist:
+        PLAYER_DATA = json.load(whitelist)
+        whitelist.close()
+        # pprint(PLAYER_DATA)
+    print "Loaded whitelist.json for usernames..."
+except:
+    print "\n\nNOTE: If you load a UUID/Username json file named 'whitelist.json' to the region-fixer.py directory an attempt will be name to convert UUIDs to usernames.\n\n"
+    pass
+
+
 class ChildProcessException(Exception):
     """Takes the child process traceback text and prints it as a
     real traceback with asterisks everywhere."""
@@ -106,7 +123,7 @@ def scan_world(world_obj, options):
                 print "[WARNING]: Player file {0} has problems.\n\tError: {1}".format(w.players[name].filename, w.players[name].status_text)
                 all_ok = False
         if all_ok:
-            print w.players
+            # print w.players
             print "All player files are readable."
 
     # SCAN ALL THE CHUNKS!
@@ -131,14 +148,19 @@ def scan_world(world_obj, options):
     w.scanned = True
 
 
-def scan_player(scanned_dat_file):
+def scan_player(scanned_dat_file,player_name):
     """ At the moment only tries to read a .dat player file. It returns
     0 if it's ok and 1 if has some problem """
 
     s = scanned_dat_file
     try:
         player_dat = nbt.NBTFile(filename = s.path)
-        print player_dat
+        # print player_dat
+        # p_name = str("unknown")
+        # p_uuid = str(player_name)
+        # this_name_tag = "\nUUID: {0} is \"{1}\" and is at {2} {3} {4}.\n".format(p_uuid, p_name, int(float(player_dat["Pos"][0].value)), int(float(player_dat["Pos"][1].value)), int(float(player_dat["Pos"][2].value)))
+        # print this_name_tag
+
         s.readable = True
     except Exception, e:
         s.readable = False
@@ -149,7 +171,7 @@ def scan_all_players(world_obj):
     """ Scans all the players using the scan_player function. """
 
     for name in world_obj.players:
-        scan_player(world_obj.players[name])
+        scan_player(world_obj.players[name],name)
 
 
 def scan_region_file(scanned_regionfile_obj, options):
@@ -218,9 +240,27 @@ def scan_region_file(scanned_regionfile_obj, options):
                                     # print val["id"]
                                     try:
                                         this_name_tag = ""
-                                        this_owner = ""
                                         this_customname = ""
-                                        wolfowner = ""
+                                        if 'OwnerUUID' in val:
+                                            if str(val["OwnerUUID"]) != "":
+                                                # pprint(PLAYER_DATA)
+                                                try:
+                                                    username = [u["name"] for u in PLAYER_DATA if u["uuid"] == str(val["OwnerUUID"])]
+                                                    this_owner = username[0]
+                                                except:
+                                                    this_owner = str(val["OwnerUUID"])
+                                                this_owner += "'s "
+                                            else:
+                                                this_owner = ""
+                                        elif 'Owner' in val:
+                                            if str(val["Owner"]) != "":
+                                                this_owner = str(val["Owner"])
+                                                this_owner += "'s "
+                                        else:
+                                            this_owner = ""
+                                        if 'CustomName' in val:
+                                            if str(val["CustomName"]) != "":
+                                               this_customname = "\"" + str(val["CustomName"]) + "\""
                                         # determine if a horse
                                         if str(val["id"]) == "EntityHorse":
                                             # print val
@@ -229,40 +269,19 @@ def scan_region_file(scanned_regionfile_obj, options):
                                                 # print "\ttame"
                                                 # this_name_tag += "\n{0}'s horse {2} is at {3} {4} {5} ({4})".format(str(val["OwnerUUID"]), str(val["CustomName"]), int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)))
                                                 # this_name_tag += "id: {0}".format(str(val["id"]))
-                                                if 'OwnerUUID' in val:
-                                                    # this_name_tag += "\n\tOwnerUUID: {0}".format(str(val["OwnerUUID"]))
-                                                    this_owner = str(val["OwnerUUID"])
-                                                if 'Owner' in val:
-                                                    # this_name_tag += "\n\tOwner: {0}".format(str(val["Owner"]))
-                                                    this_owner = str(val["Owner"])
-                                                if 'CustomName' in val:
-                                                    # this_name_tag += "\n\tCustomName: {0}".format(str(val["CustomName"]))
-                                                    this_customname = str(val["CustomName"])
-                                                this_name_tag += "{5}'s \"{0}\" is at {1} {2} {3} ({4}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner)
+                                                if this_customname == "":
+                                                    this_customname = "horse"
+                                                this_name_tag += "{5}{0} is at {1} {2} {3} ({4}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner)
                                                 print this_name_tag
                                                 continue
                                         # determine if a dog
                                         elif str(val["id"]) == "Wolf":
-                                            # print val 
-                                            if 'OwnerUUID' in val:
-                                                wolfowner = str(val["OwnerUUID"])
-                                            elif 'Owner' in val:
-                                                wolfowner = str(val["Owner"])
-                                            if wolfowner != "":
+                                            if this_owner != "":
                                                 # print "WOLF:"
                                                 # print "\ttame"
-                                                # this_name_tag = "\n{0}'s {1} {2} is at {3} {4} {5}".format(str(val["OwnerUUID"]), str(val["id"]), str(val["CustomName"]), int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)))
-                                                # this_name_tag += "id: {0}".format(str(val["id"]))
-                                                if 'OwnerUUID' in val:
-                                                    # this_name_tag += "\n\tOwnerUUID: {0}".format(str(val["OwnerUUID"]))
-                                                    this_owner = str(val["OwnerUUID"])
-                                                if 'Owner' in val:
-                                                    # this_name_tag += "\n\tOwner: {0}".format(str(val["Owner"]))
-                                                    this_owner = str(val["Owner"])
-                                                if 'CustomName' in val:
-                                                    # this_name_tag += "\n\tCustomName: {0}".format(str(val["CustomName"]))
-                                                    this_customname = str(val["CustomName"])
-                                                this_name_tag += "{5}'s \"{0}\" is at {1} {2} {3} ({4}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner)
+                                                if this_customname == "":
+                                                    this_customname = "wolf"
+                                                this_name_tag += "{5}{0} is at {1} {2} {3} ({4}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner)
                                                 print this_name_tag
                                                 continue
                                         # determine if a cat
@@ -271,31 +290,17 @@ def scan_region_file(scanned_regionfile_obj, options):
                                             if 'Tame' in val:
                                                 if str(val["Tame"]) == "1":
                                                     # print "CAT:"
-                                                    # print "\ttame"
-                                                    # this_name_tag = "\n{0}'s {1} {2} is at {3} {4} {5}".format(str(val["OwnerUUID"]), str(val["id"]), str(val["CustomName"]), int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)))
-                                                    # this_name_tag += "\tid: {0}".format(str(val["id"]))
-                                                    if 'OwnerUUID' in val:
-                                                        # this_name_tag += "\n\tOwnerUUID: {0}".format(str(val["OwnerUUID"]))
-                                                        this_owner = str(val["OwnerUUID"])
-                                                    if 'Owner' in val:
-                                                        # this_name_tag += "\n\tOwner: {0}".format(str(val["Owner"]))
-                                                        this_owner = str(val["Owner"])
-                                                    if 'CustomName' in val:
-                                                        # this_name_tag += "\n\tCustomName: {0}".format(str(val["CustomName"]))
-                                                        this_customname = str(val["CustomName"])
-                                                    this_name_tag += "{5}'s \"{0}\" is at {1} {2} {3} ({4}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner)
+                                                    if this_customname == "":
+                                                        this_customname = "cat"
+                                                    this_name_tag += "{5}{0} is at {1} {2} {3} ({4}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner)
                                                     print this_name_tag
                                                 continue
                                         # catch if random creature that's named
                                         try:
                                             if str(val["CustomName"]) != "":
                                                 # print "CUSTOMNAME:"
-                                                # print val
-                                                # this_name_tag += "\tid: {0}".format(str(val["id"]))
-                                                # if hasattr(val, 'CustomName'):
-                                                # this_name_tag += "\n\tCustomName: {0}".format(str(val["CustomName"]))
                                                 # TODO Don't simply print this. Store it to display as part of a summary that doesn't interrupt the progress bar.
-                                                this_name_tag += "\"{0}\" is at {1} {2} {3} ({4}).".format(val["CustomName"], int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"])
+                                                this_name_tag += "The {4}, {0} is at {1} {2} {3}.".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"])
                                                 print this_name_tag
                                             continue
                                         except:

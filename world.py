@@ -32,6 +32,11 @@ from shutil import copy
 
 import time
 
+try: import simplejson as json
+except ImportError: raise
+try: from pprint import pprint
+except ImportError: import json
+
 # Constants:
 # Used to mark the status of a chunks:
 CHUNK_NOT_CREATED = -1
@@ -616,6 +621,7 @@ class World(object):
         for path in player_paths:
             name = split(path)[1].split(".")[0]
             self.players[name] = ScannedDatFile(path)
+            
 
         # does it look like a world folder?
         region_files = False
