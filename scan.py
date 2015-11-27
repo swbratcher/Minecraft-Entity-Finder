@@ -106,6 +106,7 @@ def scan_world(world_obj, options):
                 print "[WARNING]: Player file {0} has problems.\n\tError: {1}".format(w.players[name].filename, w.players[name].status_text)
                 all_ok = False
         if all_ok:
+            print w.players
             print "All player files are readable."
 
     # SCAN ALL THE CHUNKS!
@@ -116,6 +117,17 @@ def scan_world(world_obj, options):
             if r.regions:
                 print "\n{0:-^60}".format(' Scanning the {0} '.format(r.get_name()))
                 scan_regionset(r, options)
+                # try:
+                #     print r.name_tag_log
+                #     if os.path.exists("name_tags.json"):
+                #         f = open( 'name_tags.json', 'r+' )
+                #     else:
+                #         f = open( 'name_tags.json', 'w' )
+                #     f.write(r.name_tag_log)
+                #     f.write('\n')
+                #     f.close()
+                # except:
+                #     print "Something went wrong while saving the name tag file!"
     w.scanned = True
 
 
@@ -126,6 +138,7 @@ def scan_player(scanned_dat_file):
     s = scanned_dat_file
     try:
         player_dat = nbt.NBTFile(filename = s.path)
+        print player_dat
         s.readable = True
     except Exception, e:
         s.readable = False
@@ -153,6 +166,7 @@ def scan_region_file(scanned_regionfile_obj, options):
     o = options
     delete_entities = o.delete_entities
     entity_limit = o.entity_limit
+    name_tag_log = ""
     try:
         r = scanned_regionfile_obj
         # counters of problems
@@ -200,18 +214,95 @@ def scan_region_file(scanned_regionfile_obj, options):
                         if options.name_tags == True:
                             if len(chunk["Level"]["Entities"]) > 0:
                                 for idx, val in enumerate(chunk["Level"]["Entities"]):
+                                    
+                                    # print val["id"]
                                     try:
-                                        if str(val["CustomName"]) != "":
-                                            # TODO Don't simply print this. Store it to display as part of a summary that doesn't interrupt the progress bar.
-                                            print "\n\"{0}\" is currently at X:{1} Z:{2}.".format(val["CustomName"], int(float(val["Pos"][0].value)), int(float(val["Pos"][2].value)))
-                                        elif str(val["Owner"]) != "":
-                                            # TODO Don't simply print this. Store it to display as part of a summary that doesn't interrupt the progress bar.
-                                            print "\n{0}'s {1} is currently at X:{2} Z:{3}.".format(val["Owner"], val["id"], int(float(val["Pos"][0].value)), int(float(val["Pos"][2].value)))
-                                        elif str(val["OwnerName"]) != "":
-                                            # TODO Don't simply print this. Store it to display as part of a summary that doesn't interrupt the progress bar.
-                                            print "\n{0}'s horse is currently at X:{1} Z:{2}.".format(val["OwnerName"], int(float(val["Pos"][0].value)), int(float(val["Pos"][2].value)))
+                                        this_name_tag = ""
+                                        this_owner = ""
+                                        this_customname = ""
+                                        wolfowner = ""
+                                        # determine if a horse
+                                        if str(val["id"]) == "EntityHorse":
+                                            # print val
+                                            if str(val["Tame"]) == "1":
+                                                # print "HORSE:"
+                                                # print "\ttame"
+                                                # this_name_tag += "\n{0}'s horse {2} is at {3} {4} {5} ({4})".format(str(val["OwnerUUID"]), str(val["CustomName"]), int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)))
+                                                # this_name_tag += "id: {0}".format(str(val["id"]))
+                                                if 'OwnerUUID' in val:
+                                                    # this_name_tag += "\n\tOwnerUUID: {0}".format(str(val["OwnerUUID"]))
+                                                    this_owner = str(val["OwnerUUID"])
+                                                if 'Owner' in val:
+                                                    # this_name_tag += "\n\tOwner: {0}".format(str(val["Owner"]))
+                                                    this_owner = str(val["Owner"])
+                                                if 'CustomName' in val:
+                                                    # this_name_tag += "\n\tCustomName: {0}".format(str(val["CustomName"]))
+                                                    this_customname = str(val["CustomName"])
+                                                this_name_tag += "{5}'s \"{0}\" is at {1} {2} {3} ({4}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner)
+                                                print this_name_tag
+                                                continue
+                                        # determine if a dog
+                                        elif str(val["id"]) == "Wolf":
+                                            # print val 
+                                            if 'OwnerUUID' in val:
+                                                wolfowner = str(val["OwnerUUID"])
+                                            elif 'Owner' in val:
+                                                wolfowner = str(val["Owner"])
+                                            if wolfowner != "":
+                                                # print "WOLF:"
+                                                # print "\ttame"
+                                                # this_name_tag = "\n{0}'s {1} {2} is at {3} {4} {5}".format(str(val["OwnerUUID"]), str(val["id"]), str(val["CustomName"]), int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)))
+                                                # this_name_tag += "id: {0}".format(str(val["id"]))
+                                                if 'OwnerUUID' in val:
+                                                    # this_name_tag += "\n\tOwnerUUID: {0}".format(str(val["OwnerUUID"]))
+                                                    this_owner = str(val["OwnerUUID"])
+                                                if 'Owner' in val:
+                                                    # this_name_tag += "\n\tOwner: {0}".format(str(val["Owner"]))
+                                                    this_owner = str(val["Owner"])
+                                                if 'CustomName' in val:
+                                                    # this_name_tag += "\n\tCustomName: {0}".format(str(val["CustomName"]))
+                                                    this_customname = str(val["CustomName"])
+                                                this_name_tag += "{5}'s \"{0}\" is at {1} {2} {3} ({4}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner)
+                                                print this_name_tag
+                                                continue
+                                        # determine if a cat
+                                        elif str(val["id"]) == "Ozelot":
+                                            # print val
+                                            if 'Tame' in val:
+                                                if str(val["Tame"]) == "1":
+                                                    # print "CAT:"
+                                                    # print "\ttame"
+                                                    # this_name_tag = "\n{0}'s {1} {2} is at {3} {4} {5}".format(str(val["OwnerUUID"]), str(val["id"]), str(val["CustomName"]), int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)))
+                                                    # this_name_tag += "\tid: {0}".format(str(val["id"]))
+                                                    if 'OwnerUUID' in val:
+                                                        # this_name_tag += "\n\tOwnerUUID: {0}".format(str(val["OwnerUUID"]))
+                                                        this_owner = str(val["OwnerUUID"])
+                                                    if 'Owner' in val:
+                                                        # this_name_tag += "\n\tOwner: {0}".format(str(val["Owner"]))
+                                                        this_owner = str(val["Owner"])
+                                                    if 'CustomName' in val:
+                                                        # this_name_tag += "\n\tCustomName: {0}".format(str(val["CustomName"]))
+                                                        this_customname = str(val["CustomName"])
+                                                    this_name_tag += "{5}'s \"{0}\" is at {1} {2} {3} ({4}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner)
+                                                    print this_name_tag
+                                                continue
+                                        # catch if random creature that's named
+                                        try:
+                                            if str(val["CustomName"]) != "":
+                                                # print "CUSTOMNAME:"
+                                                # print val
+                                                # this_name_tag += "\tid: {0}".format(str(val["id"]))
+                                                # if hasattr(val, 'CustomName'):
+                                                # this_name_tag += "\n\tCustomName: {0}".format(str(val["CustomName"]))
+                                                # TODO Don't simply print this. Store it to display as part of a summary that doesn't interrupt the progress bar.
+                                                this_name_tag += "\"{0}\" is at {1} {2} {3} ({4}).".format(val["CustomName"], int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"])
+                                                print this_name_tag
+                                            continue
+                                        except:
+                                            pass
                                     except:
-                                        pass
+                                        print "Unexpected error:", sys.exc_info()[0]
+                                        raise      
                         continue
                     elif c[TUPLE_STATUS] == world.CHUNK_TOO_MANY_ENTITIES:
                         # deleting entities is in here because parsing a chunk with thousands of wrong entities
@@ -263,6 +354,8 @@ def scan_region_file(scanned_regionfile_obj, options):
         r.shared_offset = shared_counter
         r.scan_time = time.time()
         r.status = world.REGION_OK
+        r.name_tag_log = name_tag_log
+        
         return r 
 
         # Fatal exceptions:

@@ -1,0 +1,229 @@
+ + + + + + + + + + + + + + + + + + + + + + + +
+                  Tectonicus
+   Version: 2.19
+   Build 42\:124M\r\n
+   Constructed on November 10 2013 at 2003
+ + + + + + + + + + + + + + + + + + + + + + + +
+Started on Fri May 09 00:13:26 CDT 2014
+System:
+	OS Name: Mac OS X
+	OS Architecture: x86_64
+	OS Version: 10.9.1
+	Java vendor: Apple Inc.
+	Java version: 1.6.0_65
+	Awt toolkit: apple.awt.CToolkit
+	Headless?: null
+Settings:
+	mode:CommandLine
+	rasteriser:Lwjgl
+	outputDir:/Users/sbratcher/Documents/Personal/MinecraftBUs/world-DominicServerBackup/WorldBackups/TectonicusMap
+	useCache:true
+	cacheDir:/Users/sbratcher/Documents/Personal/MinecraftBUs/world-DominicServerBackup/WorldBackups/TectonicusMap/Cache
+	minecraftJar:/Users/sbratcher/Library/Application Support/minecraft/versions/1.7.9/1.7.9.jar
+	texturePack:none
+	colourDepth:16
+	alphaBits:0
+	numSamples:0
+	tileSize:512
+	numZoomLevels:6
+	portalsInitiallyVisible:false
+	showSpawn:true
+	signsInitiallyVisible:true
+	playersInitiallyVisible:false
+	bedsInitiallyVisible:false
+	spawnInitiallyVisible:false
+	viewsInitiallyVisible:true
+	eraseOutputDir:false
+	extractLwjglNatives:true
+	isVerbose:false
+	forceLoadAwt:false
+	force32BitNatives:false
+	force64BitNatives:false
+	logFile:/Users/sbratcher/Dropbox/ProjectDev/Minecraft-Entity-Finder/./TectonicusLog.txt
+	outputHtmlName:index.html
+	numDownsampleThreads:8
+	singlePlayerName:
+'Terra' map
+	worldDir: /Users/sbratcher/Library/Application Support/minecraft/saves/world
+	dimension: Terra
+	cameraAngle: 90
+	cameraElevation: 90
+	closestZoomSize: 160
+	worldSubset: FullWorldSubset
+	useBiomeColours: false
+	'Day' layer
+		renderStyle: Regular
+		lightStyle: Day
+		imageFormat: Gif
+		customBlockConfig: 
+Using existing player skin cache
+Creating player icon assembler
+Initialising display...
+	Drawable: null
+	created pbuffer: org.lwjgl.opengl.Pbuffer@66e64686
+	used pixel format:   colour:16 depth:16 alpha:0 stencil:0 samples:0
+	display created ok
+Using rasteriser: tectonicus.rasteriser.lwjgl.LwjglRasteriser@3295cfbe
+ -- Lwjgl Rasteriser -- 
+	LWJGL version: 2.9.0
+	type: Offscreen
+	width: 2048
+	heigth: 2048
+	pBuffer: org.lwjgl.opengl.Pbuffer@66e64686
+	OpenGL Vendor: Intel Inc.
+	OpenGL Renderer: Intel HD Graphics 3000 OpenGL Engine
+	OpenGL Version: 2.1 INTEL-8.18.28
+Creating camera
+TileRenderer init complete
+StartingRenderer
+Starting tile renderer
+Loading world from base dir /Users/sbratcher/Library/Application Support/minecraft/saves/world with dimension Terra
+	Full dimension dir: /Users/sbratcher/Library/Application Support/minecraft/saves/world
+Loading level.dat
+Loading textures
+Creating block registry
+Loading players
+Loading players from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/booyeah928.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/JoeJoeMB.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/Keolalynne.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/KnackFang.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/moltenhalo.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/Spectre_Llama.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/Steevzie.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/tootrs816.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/turtle14ts.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/Uncle_Mallet.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/webkeola.dat
+Loading raw player from /Users/sbratcher/Library/Application Support/minecraft/saves/world/players/ZaneStone.dat
+	loaded 12 players
+Loading ops from /Users/sbratcher/Library/Application Support/minecraft/saves/ops.txt
+No players file found at /Users/sbratcher/Library/Application Support/minecraft/saves/ops.txt
+	found 0 players
+Detected Anvil save format
+CalculatingChunkHashes
+Discovering chunks...
+Looking for chunks in /Users/sbratcher/Library/Application Support/minecraft/saves/world
+
+Found 501880 chunks in total
+Found 0 views
+Finding visible tiles...
+FindVisibleTiles
+100%
+found 6817 total tiles to output
+Finding changed tiles since last render...
+FindChangedTiles
+Generating compass image...
+Generating portal image...
+Writing signs to /Users/sbratcher/Documents/Personal/MinecraftBUs/world-DominicServerBackup/WorldBackups/TectonicusMap/Map0/signs.js
+Outputting players to /Users/sbratcher/Documents/Personal/MinecraftBUs/world-DominicServerBackup/WorldBackups/TectonicusMap/Map0/players.js
+Outputted 0 players
+Outputting beds to /Users/sbratcher/Documents/Personal/MinecraftBUs/world-DominicServerBackup/WorldBackups/TectonicusMap/Map0/beds.js
+Outputted 0 beds
+Writing portals...
+Writing views...
+Outputting block stats to /Users/sbratcher/Documents/Personal/MinecraftBUs/world-DominicServerBackup/WorldBackups/TectonicusMap/Map0/blockStats.js
+Outputted 263 block counts
+Outputting world stats to /Users/sbratcher/Documents/Personal/MinecraftBUs/world-DominicServerBackup/WorldBackups/TectonicusMap/Map0/worldStats.js
+Outputted world stats
+Finding changed views...
+Found 0 changed views (out of 0 total views)
+Drawing Day views...
+Drawing Night views...
+View rendering done!
+Tile cache directory found and is valid. Using cache at /Users/sbratcher/Documents/Personal/MinecraftBUs/world-DominicServerBackup/WorldBackups/TectonicusMap/Cache/tileHashes/Map0/LayerA
+1%
+2%
+4%
+5%
+7%
+8%
+10%
+11%
+13%
+14%
+16%
+17%
+19%
+20%
+22%
+23%
+24%
+26%
+27%
+29%
+30%
+32%
+33%
+35%
+36%
+38%
+39%
+41%
+42%
+44%
+45%
+46%
+48%
+49%
+51%
+52%
+54%
+55%
+57%
+58%
+60%
+61%
+63%
+64%
+66%
+67%
+68%
+70%
+71%
+73%
+74%
+76%
+77%
+79%
+80%
+82%
+83%
+85%
+86%
+88%
+89%
+90%
+92%
+93%
+95%
+96%
+98%
+99%
+100%
+FindChangedTiles took: 38.371 seconds
+RenderBaseTiles
+Base render is at zoom 160 with 512x512 tiles
+RenderBaseTiles
+java.lang.OutOfMemoryError: Direct buffer memory
+	at java.nio.Bits.reserveMemory(Bits.java:632)
+	at java.nio.DirectByteBuffer.<init>(DirectByteBuffer.java:97)
+	at java.nio.ByteBuffer.allocateDirect(ByteBuffer.java:288)
+	at org.lwjgl.BufferUtils.createByteBuffer(BufferUtils.java:60)
+	at org.lwjgl.BufferUtils.createFloatBuffer(BufferUtils.java:110)
+	at tectonicus.rasteriser.lwjgl.LwjglMesh.realloc(LwjglMesh.java:250)
+	at tectonicus.rasteriser.lwjgl.LwjglMesh.addVertex(LwjglMesh.java:93)
+	at tectonicus.rasteriser.MeshUtil.addQuad(MeshUtil.java:110)
+	at tectonicus.blockTypes.Water.addEdgeGeometry(Water.java:241)
+	at tectonicus.Chunk.createGeometry(Chunk.java:146)
+	at tectonicus.world.World.draw(World.java:536)
+	at tectonicus.world.World.draw(World.java:483)
+	at tectonicus.TileRenderer.renderBaseTiles(TileRenderer.java:676)
+	at tectonicus.TileRenderer.output(TileRenderer.java:321)
+	at tectonicus.TectonicusApp.run(TectonicusApp.java:952)
+	at tectonicus.TectonicusApp.main(TectonicusApp.java:1212)
+Cleaning up...
+Writing player skin cache info (0 skin to write)
+100%
+Player skin cache written
+Finished

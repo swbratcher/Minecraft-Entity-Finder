@@ -178,7 +178,7 @@ def main():
     if options.entity_limit < 0:
         parser.error("The entity limit must be at least 0!")
 
-    print "\nWelcome to Region Fixer!"
+    print "\nWelcome to the Minecraft Entity Finder!"
     print "(version: {0})".format(parser.version)
 
     # do things with the option options args
@@ -289,16 +289,16 @@ def main():
         if options.summary == '-':
             print "\nPrinting log:\n"
             print summary_text
-        elif options.summary != None:
-            try:
-                f = open(options.summary, 'w')
-                f.write(summary_text)
-                f.write('\n')
-                f.close()
-                print "Log file saved in \'{0}\'.".format(options.summary)
-            except:
-                print "Something went wrong while saving the log file!"
-
+        # elif options.summary != None:
+        #     try:
+        #         f = open(options.summary, 'w')
+        #         f.write(summary_text)
+        #         f.write('\n')
+        #         f.close()
+        #         print "Log file saved in \'{0}\'.".format(options.summary)
+        #     except:
+        #         print "Something went wrong while saving the log file!"
+        
     return 0
 
 
