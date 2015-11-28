@@ -269,9 +269,28 @@ def scan_region_file(scanned_regionfile_obj, options):
                                                 # print "\ttame"
                                                 # this_name_tag += "\n{0}'s horse {2} is at {3} {4} {5} ({4})".format(str(val["OwnerUUID"]), str(val["CustomName"]), int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)))
                                                 # this_name_tag += "id: {0}".format(str(val["id"]))
+                                                jump = speed = health = ""
+                                                for at in val["Attributes"]:
+                                                    # print at
+                                                    if str(at["Name"]) == "horse.jumpStrength":
+                                                        jump = "%.3f" % float(at["Base"].value)
+                                                    elif str(at["Name"]) == "generic.movementSpeed":
+                                                        speed = "%.3f" % float(at["Base"].value)
+                                                    elif str(at["Name"]) == "generic.maxHealth":
+                                                        health = int(float(at["Base"].value))
+                                                # Type: The type of the horse. 0 = Horse, 1 = Donkey, 2 = Mule, 3 = Zombie, 4 = Skeleton.
                                                 if this_customname == "":
-                                                    this_customname = "horse"
-                                                this_name_tag += "{5}{0} is at {1} {2} {3} ({4}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner)
+                                                    if str(val["Type"]) == "0":
+                                                       this_customname = "Horse"
+                                                    elif str(val["Type"]) == "1":
+                                                       this_customname = "Donkey"
+                                                    elif str(val["Type"]) == "2":
+                                                       this_customname = "Mule"
+                                                    elif str(val["Type"]) == "3":
+                                                       this_customname = "ZombieHorse"
+                                                    elif str(val["Type"]) == "4":
+                                                       this_customname = "Skeleton"
+                                                this_name_tag += "{5}{0} is at {1} {2} {3} ({4}: J {6} / S {7} / H {8}).".format(this_customname, int(float(val["Pos"][0].value)), int(float(val["Pos"][1].value)), int(float(val["Pos"][2].value)), val["id"], this_owner, jump, speed, health)
                                                 print this_name_tag
                                                 continue
                                         # determine if a dog
